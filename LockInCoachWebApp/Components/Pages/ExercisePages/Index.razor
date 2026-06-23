@@ -1,0 +1,37 @@
+@page "/exercises"
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using Microsoft.EntityFrameworkCore
+@implements IAsyncDisposable
+@inject IDbContextFactory<LockInCoachWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="exercises/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Exercise">
+    <PropertyColumn Property="exercise => exercise.Name" />
+    <PropertyColumn Property="exercise => exercise.Description" />
+    <PropertyColumn Property="exercise => exercise.TargetMuscles" />
+
+    <TemplateColumn Context="exercise">
+        <a href="@($"exercises/edit?id={exercise.Id}")">Edit</a> |
+        <a href="@($"exercises/details?id={exercise.Id}")">Details</a> |
+        <a href="@($"exercises/delete?id={exercise.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private LockInCoachWebAppContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

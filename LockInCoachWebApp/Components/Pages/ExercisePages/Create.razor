@@ -1,0 +1,67 @@
+@page "/exercises/create"
+@using Microsoft.EntityFrameworkCore
+@using LockInCoachWebApp.Models
+@using LockInCoachWebApp.Enum
+@inject IDbContextFactory<LockInCoachWebAppContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Exercise</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Exercise" OnValidSubmit="AddExercise" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <span class="text-danger">*</span>
+                <label for="name" class="form-label">Name:</label> 
+                <InputText id="name" @bind-Value="Exercise.Name" class="form-control" aria-required="true"/> 
+                <ValidationMessage For="() => Exercise.Name" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <span class="text-danger">*</span>
+                <label for="description" class="form-label">Description:</label> 
+                <InputText id="description" @bind-Value="Exercise.Description" class="form-control" aria-required="true"/> 
+                <ValidationMessage For="() => Exercise.Description" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <span class="text-danger">*</span>
+                <label for="targetmuscles" class="form-label">TargetMuscles:</label> <InputSelect id="targetmuscles"
+                                                                                              @bind-Value="Exercise.TargetMuscles"
+                                                                                              class="form-control">
+                @foreach (var muscle in Enum.GetValues(typeof(Muscle)))
+                {
+                    <option value="@muscle">@muscle</option>
+                }
+
+            </InputSelect>
+                <ValidationMessage For="() => Exercise.TargetMuscles" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/exercises">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Exercise Exercise { get; set; } = default!;
+
+    protected override void OnInitialized() => Exercise ??= new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddExercise()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Exercise.Add(Exercise);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/exercises");
+    }
+}
