@@ -1,4 +1,4 @@
-﻿using LockInCoachWebApp.Enum;
+﻿using LockInCoachWebApp.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace LockInCoachWebApp.Models
@@ -14,6 +14,6 @@ namespace LockInCoachWebApp.Models
         public string? Description { get; set; }
 
         [Required]
-        public List<Muscle> TargetMuscles { get; set; } = new();
+        public Muscle TargetMuscle { get; set; }
     }
 }

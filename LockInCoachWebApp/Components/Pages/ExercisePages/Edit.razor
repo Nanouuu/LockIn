@@ -1,7 +1,7 @@
 @page "/exercises/edit"
 @using Microsoft.EntityFrameworkCore
 @using LockInCoachWebApp.Models
-@using LockInCoachWebApp.Enum
+@using LockInCoachWebApp.Enums
 @inject IDbContextFactory<LockInCoachWebAppContext> DbFactory
 @inject NavigationManager NavigationManager
 
@@ -37,8 +37,8 @@ else
                 </div>
                 <div class="mb-3">
                     <span class="text-danger">*</span>
-                    <label for="targetmuscles" class="form-label">TargetMuscles:</label> <InputSelect id="targetmuscles"
-                                                                                                  @bind-Value="Exercise.TargetMuscles"
+                    <label for="targetmuscle" class="form-label">TargetMuscle:</label> <InputSelect id="targetmuscle"
+                                                                                                  @bind-Value="Exercise.TargetMuscle"
                                                                                                   class="form-control">
                     @foreach (var muscle in Enum.GetValues(typeof(Muscle)))
                     {
@@ -46,7 +46,7 @@ else
                     }
 
                 </InputSelect>
-                <ValidationMessage For="() => Exercise.TargetMuscles" class="text-danger" />
+                <ValidationMessage For="() => Exercise.TargetMuscle" class="text-danger" />
             </div>
                 <button type="submit" class="btn btn-primary">Save</button>
             </EditForm>

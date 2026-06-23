@@ -1,4 +1,4 @@
-﻿namespace LockInCoachWebApp.Enum
+﻿namespace LockInCoachWebApp.Enums
 {
     public enum Muscle
     {

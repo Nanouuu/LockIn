@@ -38,7 +38,7 @@ namespace LockInCoachWebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.PrimitiveCollection<string>("TargetMuscles")
+                    b.PrimitiveCollection<string>("TargetMuscle")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

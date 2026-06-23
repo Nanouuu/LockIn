@@ -15,8 +15,7 @@
 
 <QuickGrid Class="table" Items="context.Exercise">
     <PropertyColumn Property="exercise => exercise.Name" />
-    <PropertyColumn Property="exercise => exercise.Description" />
-    <PropertyColumn Property="exercise => exercise.TargetMuscles" />
+    <PropertyColumn Property="exercise => exercise.TargetMuscle" />
 
     <TemplateColumn Context="exercise">
         <a href="@($"exercises/edit?id={exercise.Id}")">Edit</a> |

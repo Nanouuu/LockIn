@@ -26,8 +26,8 @@
             <dd class="col-sm-10">@exercise.Description</dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-2">TargetMuscles</dt>
-            <dd class="col-sm-10">@exercise.TargetMuscles</dd>
+            <dt class="col-sm-2">TargetMuscle</dt>
+            <dd class="col-sm-10">@exercise.TargetMuscle</dd>
         </dl>
         <EditForm method="post" Model="exercise" OnValidSubmit="DeleteExercise" FormName="delete" Enhance>
             <button type="submit" class="btn btn-danger" disabled="@(exercise is null)">Delete</button> |
