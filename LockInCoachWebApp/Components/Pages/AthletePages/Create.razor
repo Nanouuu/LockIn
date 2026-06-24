@@ -1,0 +1,48 @@
+@page "/athletes/create"
+@using LockInCoachWebApp.Models
+
+<PageTitle>Create Athlete</PageTitle>
+
+<div class="container mt-4">
+    <h2 class="mb-1">New Athlete</h2>
+    <p class="text-muted mb-4">Fill in the information below</p>
+    <hr />
+
+    <div class="row">
+        <div class="col-md-5 form-card">
+            <EditForm method="post" Model="@Athlete" OnValidSubmit="AddAthlete" FormName="create" Enhance>
+                <DataAnnotationsValidator />
+
+                <div class="mb-3">
+                    <label for="firstname" class="form-label fw-semibold">First Name <span class="text-danger">*</span></label>
+                    <InputText id="firstname" @bind-Value="Athlete!.FirstName" class="form-control" placeholder="John" />
+                    <ValidationMessage For="() => Athlete.FirstName" class="text-danger small mt-1" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="lastname" class="form-label fw-semibold">Last Name <span class="text-danger">*</span></label>
+                    <InputText id="lastname" @bind-Value="Athlete!.LastName" class="form-control" placeholder="Doe" />
+                    <ValidationMessage For="() => Athlete.LastName" class="text-danger small mt-1" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold">Email <span class="text-danger">*</span></label>
+                    <InputText id="email" @bind-Value="Athlete!.Email" class="form-control" placeholder="john.doe@email.com" />
+                    <ValidationMessage For="() => Athlete.Email" class="text-danger small mt-1" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="phonenumber" class="form-label fw-semibold">Phone Number <span class="text-danger">*</span></label>
+                    <InputText id="phonenumber" @bind-Value="Athlete!.PhoneNumber" class="form-control" placeholder="+1 600 000 0000" />
+                    <ValidationMessage For="() => Athlete.PhoneNumber" class="text-danger small mt-1" />
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a href="/athletes" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+
+            </EditForm>
+        </div>
+    </div>
+</div>

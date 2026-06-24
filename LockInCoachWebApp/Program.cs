@@ -1,4 +1,7 @@
 using LockInCoachWebApp.Components;
+using LockInCoachWebApp.Services.Interfaces;
+using LockInCoachWebApp.Services.Local;
+using LockInCoachWebApp.Services.Stubs;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +16,17 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+#region Stub
+builder.Services.AddSingleton<IAthleteService, AthleteServiceStub>();
+builder.Services.AddSingleton<IExerciseService, ExerciseServiceStub>();
+#endregion
+
+#region LOCAL DB
+/*
+builder.Services.AddScoped<IAthleteService, AthleteLocalService>();
+*/
+#endregion
 
 var app = builder.Build();
 
