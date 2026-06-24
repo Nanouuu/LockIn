@@ -20,6 +20,7 @@ builder.Services.AddRazorComponents()
 #region Stub
 builder.Services.AddSingleton<IAthleteService, AthleteServiceStub>();
 builder.Services.AddSingleton<IExerciseService, ExerciseServiceStub>();
+builder.Services.AddSingleton<ITrainingProgramService, TrainingProgramServiceStub>();
 #endregion
 
 #region LOCAL DB

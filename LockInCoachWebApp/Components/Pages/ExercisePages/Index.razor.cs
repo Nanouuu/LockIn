@@ -2,7 +2,6 @@ using LockInCoachWebApp.Enums;
 using LockInCoachWebApp.Models;
 using LockInCoachWebApp.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
-using static System.Net.WebRequestMethods;
 
 namespace LockInCoachWebApp.Components.Pages.ExercisePages
 {

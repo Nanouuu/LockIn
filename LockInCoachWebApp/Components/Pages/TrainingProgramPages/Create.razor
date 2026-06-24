@@ -1,0 +1,18 @@
+﻿@page "/training-programs/create"
+
+<h1>Create Training Program</h1>
+
+<EditForm Model="model" OnValidSubmit="Submit">
+    <DataAnnotationsValidator />
+
+    <InputText @bind-Value="model.Name" placeholder="Name" />
+    <br />
+
+    <InputDate @bind-Value="model.StartDate" />
+    <br />
+
+    <InputNumber @bind-Value="model.NumberOfWeeks" />
+    <br />
+
+    <button type="submit">Create</button>
+</EditForm>
