@@ -1,36 +1,99 @@
 @page "/exercises"
-@using Microsoft.AspNetCore.Components.QuickGrid
-@using Microsoft.EntityFrameworkCore
-@implements IAsyncDisposable
-@inject IDbContextFactory<LockInCoachWebAppContext> DbFactory
-@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+@using LockInCoachWebApp.Enums
 
-<PageTitle>Index</PageTitle>
+<div @onclick="CloseDropdown">
 
-<h1>Index</h1>
+    <PageTitle>Exercises</PageTitle>
 
-<p>
-    <a href="exercises/create">Create New</a>
-</p>
+    <h1>Exercises</h1>
 
-<QuickGrid Class="table" Items="context.Exercise">
-    <PropertyColumn Property="exercise => exercise.Name" />
-    <PropertyColumn Property="exercise => exercise.TargetMuscle" />
+    <p>
+        <a href="exercises/create">Create New</a>
+    </p>
 
-    <TemplateColumn Context="exercise">
-        <a href="@($"exercises/edit?id={exercise.Id}")">Edit</a> |
-        <a href="@($"exercises/details?id={exercise.Id}")">Details</a> |
-        <a href="@($"exercises/delete?id={exercise.Id}")">Delete</a>
-    </TemplateColumn>
-</QuickGrid>
-
-@code {
-    private LockInCoachWebAppContext context = default!;
-
-    protected override void OnInitialized()
+    @if (exerciseList is null)
     {
-        context = DbFactory.CreateDbContext();
+        <p>Loading...</p>
     }
+    else
+    {
+        <div class="d-flex gap-4 mb-4 align-items-start" >
 
-    public async ValueTask DisposeAsync() => await context.DisposeAsync();
-}
+            <div>
+                <label class="form-label fw-semibold">Sort</label>
+                <InputSelect @bind-Value="SortOrder" class="form-select">
+                    <option value="AZ">A → Z</option>
+                    <option value="ZA">Z → A</option>
+                </InputSelect>
+            </div>
+
+            <div>
+                <label class="form-label fw-semibold">Target muscles</label>
+
+                <div class="filter-box mb-3" @onclick:stopPropagation="true">
+
+                    <button class="filter-button" @onclick="ToggleDropdown">
+
+                        <span class="filter-text">
+                            @GetFilterLabel()
+                        </span>
+
+                        <span class="arrow">▾</span>
+
+                    </button>
+
+                    @if (isDropdownOpen)
+                    {
+                        <div class="filter-dropdown">
+
+                            <div class="filter-header">
+                                <span>Filter muscles</span>
+
+                                @if (SelectedMuscles.Any())
+                                {
+                                    <button class="clear-btn" @onclick="ClearFilters">
+                                        Clear
+                                    </button>
+                                }
+                            </div>
+
+                            <div class="filter-list">
+
+                                @foreach (var muscle in Enum.GetValues<Muscle>())
+                                {
+                                    <div class="filter-item @(SelectedMuscles.Contains(muscle) ? "active" : "")"
+                                         @onclick="() => ToggleMuscle(muscle)">
+                                        @muscle
+                                    </div>
+                                }
+
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="exercise-grid">
+            @foreach (var e in FilteredExercises)
+            {
+                <div class="exercise-card" @onclick="() => GoToDetails(e.Id)">
+
+                    <div class="exercise-image">
+                        <img src="@e.TargetMuscle.GetFakeImage()" />
+                    </div>
+
+                    <div class="exercise-content">
+                        <div class="exercise-name">@e.Name</div>
+                        <div class="exercise-muscle">@e.TargetMuscle</div>
+                    </div>
+
+                </div>
+            }
+        </div>
+    }
+</div>

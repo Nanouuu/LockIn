@@ -1,50 +1,60 @@
 @page "/exercises/details"
-@using Microsoft.EntityFrameworkCore
-@using LockInCoachWebApp.Models
-@inject IDbContextFactory<LockInCoachWebAppContext> DbFactory
-@inject NavigationManager NavigationManager
+@using LockInCoachWebApp.Components.Shared
+@rendermode InteractiveServer
 
-<PageTitle>Details</PageTitle>
+<PageTitle>Exercise Details</PageTitle>
 
-<h1>Details</h1>
+@if (exercise is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="details-container">
 
-<div>
-    <h2>Exercise</h2>
-    <hr />
-    @if (exercise is null)
-    {
-        <p><em>Loading...</em></p>
-    }
-    else {
-        <dl class="row">
-            <dt class="col-sm-2">Name</dt>
-            <dd class="col-sm-10">@exercise.Name</dd>
-            <dt class="col-sm-2">Description</dt>
-            <dd class="col-sm-10">@exercise.Description</dd>
-            <dt class="col-sm-2">Target Muscles</dt>
-            <dd class="col-sm-10">@exercise.TargetMuscle</dd>
-        </dl>
-        <div>
-            <a href="@($"/exercises/edit?id={exercise.Id}")">Edit</a> |
-            <a href="@($"/exercises")">Back to List</a>
+        <!-- IMAGE -->
+        <div class="details-image">
+            <img src="@exercise.TargetMuscle.GetFakeImage()" />
         </div>
-    }
-</div>
 
-@code {
-    private Exercise? exercise;
+        <!-- CONTENT -->
+        <div class="details-content">
 
-    [SupplyParameterFromQuery]
-    private System.Guid Id { get; set; }
+            <h1 class="exercise-title">@exercise.Name</h1>
 
-    protected override async Task OnInitializedAsync()
-    {
-        using var context = DbFactory.CreateDbContext();
-        exercise = await context.Exercise.FirstOrDefaultAsync(m => m.Id == Id);
+            <div class="exercise-muscle">
+                @exercise.TargetMuscle
+            </div>
 
-        if (exercise is null)
-        {
-            NavigationManager.NotFound();
-        }
-    }
+            <p class="exercise-description">
+                @exercise.Description
+            </p>
+
+            <div class="details-actions">
+                <a class="btn btn-primary"
+                   href="@($"/exercises/edit?id={exercise.Id}")">
+                    Edit
+                </a>
+
+                <button class="btn btn-danger" @onclick="ShowConfirm">
+                    Delete
+                </button>
+
+                @if (exerciseToDelete is not null)
+                {
+                    <ConfirmModal IsVisible="true"
+                                  Message="@($"Are you sure you want to delete {exerciseToDelete.Name}?")"
+                                  OnConfirm="DeleteExercise"
+                                  OnCancel="CancelDelete" />
+                }
+
+                <a class="btn btn-secondary"
+                   href="/exercises">
+                    Back
+                </a>
+            </div>
+
+        </div>
+
+    </div>
 }

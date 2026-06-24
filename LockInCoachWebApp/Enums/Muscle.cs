@@ -4,8 +4,10 @@
     {
         Chest,
         Back,
-        Legs,
-        Arms,
+        Quadriceps,
+        Hamstrings,
+        Biceps,
+        Triceps,
         Shoulders,
         Core
     }
