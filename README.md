@@ -92,7 +92,7 @@ flowchart LR
 
 ## Project Organization
 
-This project is developed as a personal, iterative application.
+This project is developed as a personal application.
 
 Features are added progressively based on product owner feedback and evolving needs. There is no fixed roadmap or delivery deadline.
 
@@ -106,9 +106,8 @@ The focus is mainly on:
 
 ---
 
-## Product Ownership
+## Product Owner
 
-**Product Owner:**
 Coach Kek's — [His instagram](https://www.instagram.com/coach_keks/)
 
 ---
