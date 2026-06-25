@@ -63,6 +63,7 @@ namespace LockInCoachWebApp.Components.Pages.TrainingProgramPages
 
             program.Workouts.Add(workout);
 
+
             return workout;
         }
 
@@ -110,7 +111,7 @@ namespace LockInCoachWebApp.Components.Pages.TrainingProgramPages
         protected void EditWorkout(Guid workoutId)
         {
             NavigationManager.NavigateTo(
-                $"/training-programs/workouts/{workoutId}");
+                $"/training-programs/workouts/{workoutId}?programId={program.Id}");
         }
 
 

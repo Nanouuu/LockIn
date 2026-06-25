@@ -1,0 +1,35 @@
+﻿@if (IsVisible)
+{
+    <div class="modal-backdrop" @onclick="Close">
+
+        <div class="modal-card" @onclick:stopPropagation="true">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Select Exercise</h5>
+
+                <button class="btn btn-sm btn-outline-secondary"
+                        @onclick="Close">
+                    ✕
+                </button>
+            </div>
+
+            <InputText class="form-control mt-3"
+                       @bind-Value="search"
+                       placeholder="Search exercise..." />
+
+            <div class="exercise-list mt-3">
+
+                @foreach (var exercise in FilteredExercises)
+                {
+                    <button class="btn btn-light w-100 text-start mb-2"
+                            @onclick="() => SelectExercise(exercise)">
+                        @exercise.Name
+                    </button>
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+}

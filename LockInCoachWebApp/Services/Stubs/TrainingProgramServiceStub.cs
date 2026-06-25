@@ -47,6 +47,19 @@ namespace LockInCoachWebApp.Services.Stubs
 
             return Task.FromResult(program.Id);
         }
+        public Task UpdateAsync(TrainingProgram program)
+        {
+            var existingProgram = _programs.FirstOrDefault(x => x.Id == program.Id);
+
+            if (existingProgram is null)
+                return Task.CompletedTask;
+
+            var index = _programs.IndexOf(existingProgram);
+
+            _programs[index] = program;
+
+            return Task.CompletedTask;
+        }
 
         public Task DeleteAsync(Guid id)
         {
@@ -55,6 +68,15 @@ namespace LockInCoachWebApp.Services.Stubs
                 _programs.Remove(exercise);
 
             return Task.CompletedTask;
+        }
+
+        public Task<Workout?> GetWorkoutAsync(Guid workoutId)
+        {
+            var workout = _programs
+                .SelectMany(x => x.Workouts)
+                .FirstOrDefault(x => x.Id == workoutId);
+
+            return Task.FromResult(workout);
         }
     }
 }

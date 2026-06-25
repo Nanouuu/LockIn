@@ -9,6 +9,9 @@ namespace LockInCoachWebApp.Components.Pages.TrainingProgramPages.WorkoutPages
         [Parameter]
         public Guid WorkoutId { get; set; }
 
+        [SupplyParameterFromQuery]
+        public Guid ProgramId { get; set; }
+
         [Inject]
         public ITrainingProgramService ProgramService { get; set; } = default!;
 
@@ -16,29 +19,62 @@ namespace LockInCoachWebApp.Components.Pages.TrainingProgramPages.WorkoutPages
         public NavigationManager NavigationManager { get; set; } = default!;
 
         protected Workout? workout;
+        protected TrainingProgram? program;
+
+        protected bool showExerciseModal;
 
         protected override async Task OnInitializedAsync()
         {
-            var programs = await ProgramService.GetAllAsync();
+            program = await ProgramService.GetByIdAsync(ProgramId);
 
-            workout = programs
-                .SelectMany(x => x.Workouts)
-                .FirstOrDefault(x => x.Id == WorkoutId);
+            workout = program?.Workouts.FirstOrDefault(x => x.Id == WorkoutId);
         }
 
         protected async Task Save()
         {
-            // Quand IWorkoutService:
-            // await WorkoutService.UpdateAsync(workout);
+            if (program is null)
+                return;
 
-            NavigationManager.NavigateTo($"/training-programs/{workout!.TrainingProgramId}/builder");
+            await ProgramService.UpdateAsync(program);
 
-            await Task.CompletedTask;
+            NavigationManager.NavigateTo($"/training-programs/{program.Id}/builder");
         }
 
         protected void AddExercise()
         {
-            // to do : ouvrir un modal 
+            showExerciseModal = true;
+        }
+
+        protected void CloseExerciseModal()
+        {
+            showExerciseModal = false;
+        }
+
+        protected void AddExerciseToWorkout(Exercise exercise)
+        {
+            if (workout is null)
+                return;
+
+            workout.Exercises.Add(new WorkoutExercise
+            {
+                Id = Guid.NewGuid(),
+                ExerciseId = exercise.Id,
+                ExerciseName = exercise.Name,
+                Notes = string.Empty,
+                Sets =
+                [
+                    new WorkoutSet
+                    {
+                        Id = Guid.NewGuid(),
+                        SetNumber = 1,
+                        Reps = 10,
+                        Weight = 0,
+                        RestTime = 90
+                    }
+                ]
+            });
+
+            showExerciseModal = false;
         }
     }
 }

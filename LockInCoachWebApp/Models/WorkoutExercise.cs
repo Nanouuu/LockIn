@@ -8,6 +8,8 @@
 
         public Guid ExerciseId { get; set; }
 
+        public string? ExerciseName { get; set; }
+
         public string Notes { get; set; } = string.Empty;
 
         public Exercise? Exercise { get; set; }
