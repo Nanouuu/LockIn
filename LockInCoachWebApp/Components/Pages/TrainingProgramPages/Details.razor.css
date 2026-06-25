@@ -1,0 +1,29 @@
+/* CSS for Details component */
+.week-container {
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #eee;
+}
+
+.week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1rem;
+}
+
+.day-card {
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 1rem;
+    min-height: 140px;
+    background: white;
+}
+
+    .day-card h5 {
+        margin-bottom: 1rem;
+    }
+
+.empty-state {
+    text-align: center;
+    color: #999;
+}

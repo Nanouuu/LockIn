@@ -4,9 +4,8 @@
 
 <PageTitle>Athletes</PageTitle>
 
-<div class="container mt-4">
+<div class="mt-4">
 
-    <!-- Header -->
     <div class="d-flex justify-content-between align-items-center mb-4">
         <div>
             <h1 class="mb-0">Athletes</h1>
@@ -18,7 +17,6 @@
         </a>
     </div>
 
-    <!-- 🔎 SEARCH + SORT -->
     <div class="d-flex gap-3 mb-3">
 
         <input class="form-control"
@@ -37,7 +35,7 @@
 
     @if (athleteList is null)
     {
-        <div class="text-muted">Loading...</div>
+        <div class="text-muted">There's no athlete here...</div>
     }
     else
     {
@@ -72,6 +70,7 @@
                         {
                             <ConfirmModal IsVisible="athleteToDelete is not null"
                                           Message="@($"Delete {athleteToDelete?.FirstName} {athleteToDelete?.LastName}?")"
+                                          ActionTitle="@("Delete")"
                                           OnConfirm="DeleteAthlete"
                                           OnCancel="CancelDelete" />
                         }

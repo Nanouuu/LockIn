@@ -11,12 +11,10 @@ else
 {
     <div class="details-container">
 
-        <!-- IMAGE -->
         <div class="details-image">
             <img src="@exercise.TargetMuscle.GetFakeImage()" />
         </div>
 
-        <!-- CONTENT -->
         <div class="details-content">
 
             <h1 class="exercise-title">@exercise.Name</h1>
@@ -43,6 +41,7 @@ else
                 {
                     <ConfirmModal IsVisible="true"
                                   Message="@($"Are you sure you want to delete {exerciseToDelete.Name}?")"
+                                  ActionTitle="@("Delete")"
                                   OnConfirm="DeleteExercise"
                                   OnCancel="CancelDelete" />
                 }

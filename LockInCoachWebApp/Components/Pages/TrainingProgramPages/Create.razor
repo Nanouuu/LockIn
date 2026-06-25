@@ -2,17 +2,79 @@
 
 <h1>Create Training Program</h1>
 
-<EditForm Model="model" OnValidSubmit="Submit">
-    <DataAnnotationsValidator />
+<div class="card shadow-sm">
+    <div class="card-body">
 
-    <InputText @bind-Value="model.Name" placeholder="Name" />
-    <br />
+        <EditForm Model="model" OnValidSubmit="Submit">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-    <InputDate @bind-Value="model.StartDate" />
-    <br />
+            <div class="mb-3">
+                @if (!string.IsNullOrWhiteSpace(error))
+                {
+                    <div class="alert alert-danger">
+                        @error
+                    </div>
+                }
+                <label class="form-label">Athlete</label>
 
-    <InputNumber @bind-Value="model.NumberOfWeeks" />
-    <br />
+                <InputSelect class="form-select" @bind-Value="model.AthleteId">
 
-    <button type="submit">Create</button>
-</EditForm>
+                    <option value="@Guid.Empty" disabled hidden>
+                        Select an athlete
+                    </option>
+
+                    @foreach (var athlete in athletes)
+                    {
+                        <option value="@athlete.Id">
+                            @athlete.FirstName @athlete.LastName
+                        </option>
+                    }
+
+                </InputSelect>
+
+                <ValidationMessage For="@(() => model.AthleteId)" />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Program Name</label>
+
+                <InputText class="form-control"
+                           @bind-Value="model.Name" 
+                           placeholder="Enter program name"/>
+
+                <ValidationMessage For="@(() => model.Name)" />
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    <label class="form-label">Start Date</label>
+
+                    <InputDate class="form-control"
+                               @bind-Value="model.StartDate" />
+                </div>
+
+                <div class="col-md-6">
+                    <label class="form-label">Number Of Weeks</label>
+
+                    <InputNumber class="form-control"
+                                 @bind-Value="model.NumberOfWeeks" />
+                </div>
+
+            </div>
+
+            <div class="mt-4">
+                <button class="btn btn-primary" type="submit">
+                    Create Program
+                </button>
+                <a href="/training-programs"
+                   class="btn btn-outline-secondary">
+                    Cancel
+                </a>
+            </div>
+
+        </EditForm>
+
+    </div>
+</div>

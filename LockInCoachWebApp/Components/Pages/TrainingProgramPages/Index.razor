@@ -19,7 +19,9 @@
 
         @foreach (var a in athletes)
         {
-            <option value="@a.Id">@a.FirstName @a.LastName</option>
+            <option value="@a.Id">
+                @a.FirstName @a.LastName
+            </option>
         }
     </select>
 </div>
@@ -37,6 +39,7 @@ else
     <table class="table table-hover">
         <thead>
             <tr>
+                <th>Athlete</th>
                 <th>Name</th>
                 <th>Start</th>
                 <th>End</th>
@@ -47,10 +50,13 @@ else
         <tbody>
             @foreach (var p in programsFiltered)
             {
-                <tr>
+                <tr style="cursor:pointer"
+                    @onclick="() => OpenProgram(p.Id)">
+
+                    <td>@p.AthleteName</td>
                     <td>@p.Name</td>
                     <td>@p.StartDate.ToShortDateString()</td>
-                    <td>@GetEndDate(p).ToShortDateString()</td>
+                    <td>@p.EndDate.ToShortDateString()</td>
                     <td>@p.NumberOfWeeks</td>
                 </tr>
             }

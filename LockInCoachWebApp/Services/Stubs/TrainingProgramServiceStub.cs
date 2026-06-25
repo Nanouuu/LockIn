@@ -37,10 +37,23 @@ namespace LockInCoachWebApp.Services.Stubs
         public Task<TrainingProgram?> GetByIdAsync(Guid id)
             => Task.FromResult(_programs.FirstOrDefault(x => x.Id == id));
 
-        public Task CreateAsync(TrainingProgram program)
+        public Task<Guid> CreateAsync(TrainingProgram program)
         {
             program.Id = Guid.NewGuid();
+
+            program.Workouts ??= new();
+
             _programs.Add(program);
+
+            return Task.FromResult(program.Id);
+        }
+
+        public Task DeleteAsync(Guid id)
+        {
+            var exercise = _programs.FirstOrDefault(x => x.Id == id);
+            if (exercise != null)
+                _programs.Remove(exercise);
+
             return Task.CompletedTask;
         }
     }

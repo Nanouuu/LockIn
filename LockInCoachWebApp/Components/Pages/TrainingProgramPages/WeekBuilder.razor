@@ -1,0 +1,105 @@
+﻿@page "/training-programs/{ProgramId:guid}/builder"
+@using LockInCoachWebApp.Components.Shared
+
+@if (program is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+            <h1 class="mb-1">@program?.Name</h1>
+
+            <p class="text-muted mb-0">
+                @program?.NumberOfWeeks weeks program
+            </p>
+        </div>
+
+        <a href="/training-programs"
+           class="btn btn-outline-secondary">
+            ← Back to training programs
+        </a>
+
+    </div>
+
+    <div class="week-grid">
+
+        @foreach (var day in days)
+        {
+            var workout = GetWorkout(day);
+
+            <div class="day-card">
+
+                <h5>@day</h5>
+
+                @if (workout is null)
+                {
+                    <div class="empty-state">
+
+                        <p>No workout planned</p>
+
+                        <button class="btn btn-primary"
+                                @onclick="() => SetWorkout(day)">
+                            Add Workout
+                        </button>
+
+                        <button class="btn btn-outline-secondary mt-2"
+                                @onclick="() => SetRestDay(day)">
+                            Rest Day
+                        </button>
+
+                    </div>
+                }
+                else
+                {
+                    <div class="empty-state">
+
+                        <h6>@workout.Name</h6>
+
+                        @if (workout.IsRestDay)
+                        {
+                            <div class="mt-2 d-flex flex-column gap-2">
+
+                                <button class="btn btn-sm btn-primary"
+                                        @onclick="() => SetWorkout(day)">
+                                    Convert to workout
+                                </button>
+
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="mt-2 d-flex flex-column gap-2">
+
+                                <button class="btn btn-sm btn-primary"
+                                        @onclick="() => AskSetRestDay(day)">
+                                    Convert to rest day
+                                </button>
+
+                                @if (showRestDayConfirm)
+                                {
+                                    <ConfirmModal IsVisible="true"
+                                                    Message="Are you sure you want to convert this workout into a rest day? This will erase the workout forever."
+                                                    ActionTitle="Confirm"
+                                                    OnConfirm="ConfirmSetRestDay"
+                                                    OnCancel="CancelRestDay" />
+                                }
+
+                                <button class="btn btn-sm btn-outline-primary"
+                                        @onclick="() => EditWorkout(workout.Id)">
+                                    Edit workout
+                                </button>
+
+                            </div>
+                        }
+
+                    </div>
+                }
+
+            </div>
+        }
+
+    </div>
+}

@@ -9,7 +9,7 @@ namespace LockInCoachWebApp.Services.Stubs
         {
             new Athlete
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
                 FirstName = "John",
                 LastName = "Doe",
                 Email = "john.doe@mail.com",
@@ -17,7 +17,7 @@ namespace LockInCoachWebApp.Services.Stubs
             },
             new Athlete
             {
-                Id = Guid.NewGuid(),
+                Id = Guid.Parse("22222222-2222-2222-2222-222222222222"),
                 FirstName = "Emma",
                 LastName = "Smith",
                 Email = "emma.smith@mail.com",

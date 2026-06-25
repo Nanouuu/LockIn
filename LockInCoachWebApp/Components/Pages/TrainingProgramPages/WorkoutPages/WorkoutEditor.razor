@@ -1,0 +1,61 @@
+﻿@page "/training-programs/workouts/{WorkoutId:guid}"
+
+<PageTitle>Workout Editor</PageTitle>
+
+@if (workout is null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1>@workout.Name</h1>
+            <p class="text-muted mb-0">
+                @workout.DayOfWeek
+            </p>
+        </div>
+
+        <button class="btn btn-success"
+                @onclick="Save">
+            Save
+        </button>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Workout Name
+                </label>
+
+                <InputText class="form-control"
+                           @bind-Value="workout.Name" />
+            </div>
+
+        </div>
+    </div>
+
+    <div class="card shadow-sm mt-4">
+        <div class="card-header">
+            Exercises
+        </div>
+
+        <div class="card-body">
+
+            @if (!workout.Exercises.Any())
+            {
+                <p class="text-muted">
+                    No exercises added yet.
+                </p>
+            }
+
+            <button class="btn btn-primary"
+                    @onclick="AddExercise">
+                + Add Exercise
+            </button>
+
+        </div>
+    </div>
+}

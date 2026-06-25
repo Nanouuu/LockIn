@@ -1,3 +1,5 @@
+using LockInCoachWebApp.DTO;
+using LockInCoachWebApp.Factories;
 using LockInCoachWebApp.Models;
 using LockInCoachWebApp.Services.Interfaces;
 using Microsoft.AspNetCore.Components;
@@ -6,17 +8,20 @@ namespace LockInCoachWebApp.Components.Pages.TrainingProgramPages;
 
 public partial class Index : ComponentBase
 {
-    [Inject]
+    [Inject] 
     public ITrainingProgramService ProgramService { get; set; } = default!;
+    [Inject] 
+    public IAthleteService AthleteService { get; set; } = default!;
+    [Inject] 
+    public NavigationManager NavigationManager { get; set; } = default!;
 
-    // TEMP stub 
-    protected List<Athlete> athletes = new()
-    {
-        new Athlete { Id = Guid.Parse("11111111-1111-1111-1111-111111111111"), FirstName = "John", LastName = "Doe" },
-        new Athlete { Id = Guid.Parse("22222222-2222-2222-2222-222222222222"), FirstName = "Mike", LastName = "Smith" }
-    };
+    protected List<Athlete> athletes = new();
+
+    protected List<TrainingProgramListItem>? programs;
+    protected List<TrainingProgramListItem>? programsFiltered;
 
     private Guid? _selectedAthleteId;
+
     protected Guid? SelectedAthleteId
     {
         get => _selectedAthleteId;
@@ -27,12 +32,18 @@ public partial class Index : ComponentBase
         }
     }
 
-    protected List<TrainingProgram>? programs;
-    protected List<TrainingProgram>? programsFiltered;
-
     protected override async Task OnInitializedAsync()
     {
-        programs = await ProgramService.GetAllAsync();
+        athletes = await AthleteService.GetAllAsync();
+
+        var rawPrograms = await ProgramService.GetAllAsync();
+
+        var athleteDict = athletes.ToDictionary(x => x.Id);
+
+        programs = rawPrograms
+            .Select(p => TrainingProgramFactory.Create(p, athleteDict))
+            .ToList();
+
         ApplyFilter();
     }
 
@@ -41,14 +52,17 @@ public partial class Index : ComponentBase
         if (programs is null)
             return;
 
-        programsFiltered = SelectedAthleteId is null || SelectedAthleteId == Guid.Empty
-            ? programs
-            : programs.Where(x => x.AthleteId == SelectedAthleteId).ToList();
+        programsFiltered =
+            SelectedAthleteId is null || SelectedAthleteId == Guid.Empty
+                ? programs
+                : programs.Where(x => x.AthleteId == SelectedAthleteId).ToList();
     }
 
-    protected DateTime GetEndDate(TrainingProgram p)
+    protected DateTime GetEndDate(TrainingProgramListItem p)
+        => p.EndDate;
+
+    protected void OpenProgram(Guid id)
     {
-        return p.StartDate.AddDays((p.NumberOfWeeks * 7) - 1);
+        NavigationManager.NavigateTo($"/training-programs/{id}");
     }
-
 }

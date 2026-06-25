@@ -7,6 +7,7 @@ namespace LockInCoachWebApp.Services.Interfaces
     {
         Task<List<TrainingProgram>> GetAllAsync();
         Task<TrainingProgram?> GetByIdAsync(Guid id);
-        Task CreateAsync(TrainingProgram program);
+        Task<Guid> CreateAsync(TrainingProgram program);
+        Task DeleteAsync(Guid id);
     }
 }
