@@ -1,4 +1,13 @@
-# Coach Dashboard (Blazor)
+# Coach Dashboard
+
+> [!NOTE]
+> ## Development Status
+>
+> This project is currently paused.
+>
+> I'm currently dedicating my time to a higher-priority project: a mobile application designed to help athletes train and manage their progression independently, without requiring a coach.
+>
+> This repository is **not abandoned**, but active development is temporarily suspended until I can return to it.
 
 ## Badges
 
