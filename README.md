@@ -1,13 +1,11 @@
-# Coach Dashboard
+# LockIn
 
 > [!NOTE]
 > ## Development Status
 >
-> This project is currently paused.
+> This project is currently active, but the **coach features are temporarily on hold**.
 >
-> I'm currently dedicating my time to a higher-priority project: a mobile application designed to help athletes train and manage their progression independently, without requiring a coach.
->
-> This repository is **not abandoned**, but active development is temporarily suspended until I can return to it.
+> I’m currently focusing on the **self-directed athlete experience**, which is the main priority of the product. This comes from a personal need, as I haven’t found any existing solution that properly fits this use case without unnecessary complexity.
 
 ## Badges
 
@@ -20,29 +18,19 @@
 
 ## Overview
 
-The **Coach Dashboard** is a web application built with **Blazor** as part of a larger coaching ecosystem.
-It represents the **coach-facing interface** of a broader system composed of:
+**LockIn** is a training-tracking app built first and foremost for the **self-directed athlete**, with an optional extension toward a coached experience.
+
+* In **self-coached mode**, the athlete creates and manages their own training program, and tracks their progress session after session, with no dependency on a coach.
+* In **coached mode**, the athlete follows the program set by their coach, and their activity data is automatically sent back to them.
+
+The project is part of a broader ecosystem made up of:
 
 * A backend **API**
 * A centralized **database**
 * A **mobile application** for athletes
-* This **Blazor dashboard** for coaches
+* A **Blazor dashboard** for coaches (currently on hold)
 
-The goal is to provide a functional and intuitive tool for coaches to manage athletes, programs, and training content while maintaining a global view of athlete activity.
-
----
-
-## Purpose
-
-This application allows coaches to:
-
-* Manage athletes (profiles, status, progression)
-* Create and organize exercises
-* Build and assign training programs
-* Track athlete activity and adherence
-* Monitor performance and long-term evolution
-
-It centralizes coaching operations into a single platform while ensuring consistency across mobile and backend systems.
+The goal is to offer a simple, effective tool for tracking training day to day, whether self-directed or coached, without the unnecessary complexity of existing solutions.
 
 ---
 
@@ -68,14 +56,20 @@ Stores:
 
 ### Mobile Application (Athletes)
 
-Used by athletes to:
+Self-coached athletes:
 
-* View assigned programs
-* Track workouts
-* Follow coach instructions
-* Send activity data
+* Create and manage their own training programs
+* Track workouts and performance
+* Log training sessions easily
 
-### Coach Dashboard (Blazor) — *this repository*
+Coached athletes:
+
+* View assigned programs from their coach
+* Follow structured training plans
+* Track workouts as prescribed
+* Send activity data back to the coach
+
+### Coach Dashboard
 
 Used by coaches to:
 
@@ -112,11 +106,3 @@ The focus is mainly on:
 - Keeping the codebase clean and consistent
 - Avoiding unnecessary complexity
 - Adapting quickly to new requirements
-
----
-
-## Product Owner
-
-Coach Kek's — [His instagram](https://www.instagram.com/coach_keks/)
-
----
