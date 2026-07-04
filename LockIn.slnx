@@ -1,0 +1,14 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LockIn.Api/LockIn.Api.csproj" />
+    <Project Path="src/LockIn.Application/LockIn.Application.csproj" />
+    <Project Path="src/LockIn.CoachingDashboard/LockIn.CoachingDashboard.csproj" />
+    <Project Path="src/LockIn.Contracts/LockIn.Contracts.csproj" />
+    <Project Path="src/LockIn.Domain/LockIn.Domain.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LockIn.Api.Tests/LockIn.Api.Tests.csproj" />
+    <Project Path="tests/LockIn.Application.Tests/LockIn.Application.Tests.csproj" />
+    <Project Path="tests/LockIn.Domain.Tests/LockIn.Domain.Tests.csproj" />
+  </Folder>
+</Solution>
