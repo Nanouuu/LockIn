@@ -6,8 +6,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\LockIn.Domain\LockIn.Domain.csproj" />
-  </ItemGroup>
-
 </Project>

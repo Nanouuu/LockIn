@@ -5,6 +5,7 @@
     <Project Path="src/LockIn.CoachingDashboard/LockIn.CoachingDashboard.csproj" />
     <Project Path="src/LockIn.Contracts/LockIn.Contracts.csproj" />
     <Project Path="src/LockIn.Domain/LockIn.Domain.csproj" />
+    <Project Path="src/LockIn.Infrastructure/LockIn.Infrastructure.csproj" Id="7c760c44-c399-4643-8710-85bd07133e81" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/LockIn.Api.Tests/LockIn.Api.Tests.csproj" />
